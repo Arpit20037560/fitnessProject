@@ -55,5 +55,22 @@ workoutRouter.patch("/update/:id",authenticate,async (req,res)=>
         res.status(400).json({ error: error.message });   
     }
 })
+//Get Workout By Id
+workoutRouter.get("/:id",authenticate,async(req,res)=>
+{
+    try 
+    {
+        const workout = await Workout.findById(req.params.id);
+
+        if(!workout)
+        {
+            res.status(400).json({message:"Workout is Not Found"});
+        }
+        res.send(workout);
+        
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+})
 
 module.exports = workoutRouter;
