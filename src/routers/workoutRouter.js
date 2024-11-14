@@ -90,7 +90,7 @@ workoutRouter.get("/",authenticate,async(req,res)=>
         
     }
 })
-//Delete Workout
+//Delete Workout By Id
 workoutRouter.delete("/delete/:id",authenticate, async(req,res)=>
 {
     try 
@@ -109,5 +109,27 @@ workoutRouter.delete("/delete/:id",authenticate, async(req,res)=>
         res.status(400).json({error:error.message})
     }
 })
+
+//Delete All Workouts
+workoutRouter.delete("/deleteAll",authenticate, async(req,res)=>
+{
+    try 
+    {
+        const deleteResult =  await Workout.deleteMany({user:req.userId});
+        if (deleteResult.deletedCount === 0) {
+            return res.status(404).json({ message: "No workouts found to delete" });
+        }
+
+        res.status(200).json({ message: "All workouts deleted successfully" });
+        
+    } catch (error) 
+    {
+        res.status(400).json({error:error.message})
+        
+    }
+})
+
+
+
 
 module.exports = workoutRouter;
