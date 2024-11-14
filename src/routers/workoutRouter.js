@@ -72,5 +72,42 @@ workoutRouter.get("/:id",authenticate,async(req,res)=>
         res.status(400).json({error:error.message})
     }
 })
+//Get All WorkoutDetails
+workoutRouter.get("/",authenticate,async(req,res)=>
+{
+    try 
+    {
+        const workouts = await Workout.find({user:req.user.userId});
+
+        if(!workouts)
+        {
+            res.send("No Workout Available");
+        }
+        res.status(200).json({ workouts });
+    } catch (error) 
+    {
+        res.status(400).json({error:error.message})
+        
+    }
+})
+//Delete Workout
+workoutRouter.delete("/delete/:id",authenticate, async(req,res)=>
+{
+    try 
+    {
+        const workoutId = req.params.id;
+        const workout = await Workout.findOneAndDelete({ _id: workoutId, user: req.user.userId });
+
+        if(!workout)
+        {
+            return res.status(404).json({ message: "Workout not found or not authorized to delete" });
+
+        }
+        res.status(200).json({ message: "Workout deleted successfully" });
+        
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+})
 
 module.exports = workoutRouter;
