@@ -28,5 +28,32 @@ workoutRouter.post("/create", authenticate, async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
+//Update Workout
+workoutRouter.patch("/update/:id",authenticate,async (req,res)=>
+{
+    try {
+        validateWorkout(req);
+
+        const { name, duration, intensity, notes } = req.body;
+
+       const workout = await Workout.findById(req.params.id);
+
+       if (!workout) {
+           return res.status(404).json({ message: "Workout not found" });
+       }
+
+        workout.name = name;
+        workout.duration = duration;
+        workout.intensity = intensity;
+        workout.notes = notes;
+    
+        await workout.save();
+        
+        res.status(200).json({ message: "Workout updated successfully", workout });
+        
+    } catch (error) {
+        res.status(400).json({ error: error.message });   
+    }
+})
 
 module.exports = workoutRouter;
