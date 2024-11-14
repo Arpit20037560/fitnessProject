@@ -6,8 +6,11 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-const authRouter = require("./controllers/authController"); 
+const authRouter = require("./routers/authRouter"); 
+const workoutRouter = require("./routers/workoutRouter");
+
 app.use("/auth", authRouter); 
+app.use("/",workoutRouter);
 
 connectDB().then(() => {
     app.listen(3000, () => {
