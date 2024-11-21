@@ -110,24 +110,25 @@ workoutRouter.delete("/delete/:id",authenticate, async(req,res)=>
     }
 })
 
-//Delete All Workouts
-workoutRouter.delete("/deleteAll",authenticate, async(req,res)=>
-{
-    try 
-    {
-        const deleteResult =  await Workout.deleteMany({user:req.userId});
+// Delete All Workouts
+workoutRouter.delete("/deleteAll", authenticate, async (req, res) => {
+    try {
+        // Use req.user.userId instead of req.userId
+        const deleteResult = await Workout.deleteMany({ user: req.user.userId });
+
+        console.log("User ID:", req.user.userId); 
+
         if (deleteResult.deletedCount === 0) {
             return res.status(404).json({ message: "No workouts found to delete" });
         }
 
         res.status(200).json({ message: "All workouts deleted successfully" });
-        
-    } catch (error) 
-    {
-        res.status(400).json({error:error.message})
-        
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
-})
+});
+
 
 
 
