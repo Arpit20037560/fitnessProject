@@ -19,7 +19,11 @@ const Login = () => {
       const response = await axios.post('http://localhost:3000/auth/login', {
         email,
         password,
-      });
+        
+      },
+      {
+        withCredentials: true
+    });
       console.log(response.data);
       dispatch(loggedInUser(response.data));
       navigate("/dashboard");
@@ -35,7 +39,10 @@ const Login = () => {
         name,
         email,
         password,
-      });
+      },
+      {
+        withCredentials: true
+    });
       console.log(response.data);
       dispatch(signUpUser(response.data));
       navigate("/dashboard");
