@@ -33,17 +33,46 @@ const Dashboard = () => {
   // Workout Form State
   const [name, setWorkoutName] = useState("");
   const [duration, setDuration] = useState("");
-  const [intensity, setIntensity] = useState("low"); 
+  const [intensity, setIntensity] = useState("low");
   const [notes, setNotes] = useState("");
   const [isEditable, setIsEditable] = useState(false);
   const [editId, setEditId] = useState(null);
-  const [search,setSearch] = useState("");
+  const [search, setSearch] = useState("");
+  const [sortedWorkouts, setSortedWorkouts] = useState(workoutSelector);
 
+  // Search handler
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const filteredWorkouts = workoutSelector.filter((workout) =>
+    workout.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  // Ascending Order
+  const sortedWorkoutsAsc = () => {
+    const sorted = [...filteredWorkouts].sort((a, b) => {
+      const durationA = parseInt(a.duration, 10);
+      const durationB = parseInt(b.duration, 10);
+      return durationA - durationB;
+    });
+    setSortedWorkouts(sorted);
+  };
+
+  // Descending Order
+  const sortedWorkoutsDesc = () => {
+    const sorted = [...filteredWorkouts].sort((a, b) => {
+      const durationA = parseInt(a.duration, 10);
+      const durationB = parseInt(b.duration, 10);
+      return durationB - durationA;
+    });
+    setSortedWorkouts(sorted);
+  };
 
   // Intensity options
   const intensityOptions = ["low", "moderate", "high"];
 
-  // Handlers
+  // Handlers for workout actions
   const handleWorkoutCreation = async (e) => {
     e.preventDefault();
     if (isEditable) {
@@ -103,7 +132,7 @@ const Dashboard = () => {
   const handleWorkoutEdit = (id, name, duration, intensity, notes) => {
     setWorkoutName(name);
     setDuration(duration);
-    setIntensity(intensity); // Set the intensity for the editing form
+    setIntensity(intensity);
     setNotes(notes);
     setIsEditable(true);
     setEditId(id);
@@ -122,16 +151,7 @@ const Dashboard = () => {
       alert("Failed to delete All workouts.");
     }
   };
-
-  const handleSearch = (e)=>
-  {
-    setSearch(e.target.value);
-  }
-
-  const filteredWorkouts = workoutSelector.filter((workout) =>
-    workout.name.toLowerCase().includes(search.toLowerCase())
-  );
-  
+  const workoutsToDisplay = search ? filteredWorkouts : sortedWorkouts;
 
   return (
     <div>
@@ -182,25 +202,28 @@ const Dashboard = () => {
 
         {/* Controls Section */}
         <div className="flex px-2">
-          
-        <input
-  class="rounded-full bg-violet-100 text-xl border-2 border-purple-500 p-4 placeholder-purple-400 focus:text-violet-950 focus:border-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
-  placeholder="Enter Exercise Name..."
-  value={search}
-  onChange={handleSearch}
-/>
-
-          
-          <button className="btn btn-outline btn-success px-3 m-2">Ascending duration</button>
-          <button className="btn btn-outline btn-warning px-3 m-2">Descending duration</button>
-          <button className="btn btn-outline btn-error px-3 m-2" onClick={handleDeleteAllOperations}>Delete All</button>
+          <input
+            className="rounded-full bg-violet-100 text-xl border-2 border-purple-500 p-4 placeholder-purple-400 focus:text-violet-950 focus:border-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            placeholder="Enter Exercise Name..."
+            value={search}
+            onChange={handleSearch}
+          />
+          <button className="btn btn-outline btn-success px-3 m-2" onClick={sortedWorkoutsAsc}>
+            Ascending duration
+          </button>
+          <button className="btn btn-outline btn-warning px-3 m-2" onClick={sortedWorkoutsDesc}>
+            Descending duration
+          </button>
+          <button className="btn btn-outline btn-error px-3 m-2" onClick={handleDeleteAllOperations}>
+            Delete All
+          </button>
         </div>
 
         {/* Scrollable Cards Section */}
         <main className="flex-1 space-y-8 overflow-x-auto">
           <div className="carousel carousel-center rounded-box mt-8 space-x-4 flex-nowrap">
-            {filteredWorkouts?.length > 0 ? (
-              filteredWorkouts?.map((workout) => (
+            {workoutsToDisplay?.length > 0 ? (
+              workoutsToDisplay?.map((workout) => (
                 <div className="carousel-item" key={workout._id}>
                   <Cards 
                     {...workout} 
