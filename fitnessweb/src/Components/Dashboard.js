@@ -26,7 +26,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchWorkouts();
-  }, [dispatch]);
+  }, []);
 
   const workoutSelector = useSelector((store) => store.workout);
 
@@ -38,38 +38,54 @@ const Dashboard = () => {
   const [isEditable, setIsEditable] = useState(false);
   const [editId, setEditId] = useState(null);
   const [search, setSearch] = useState("");
-  const [sortedWorkouts, setSortedWorkouts] = useState(workoutSelector);
+  const [workoutsToDisplay, setWorkoutsToDisplay] = useState(workoutSelector);
+  const [sortOrder, setSortOrder] = useState(null);
 
   // Search handler
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
-  const filteredWorkouts = workoutSelector.filter((workout) =>
-    workout.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  // Ascending Order
+  // Sort workouts in ascending order
   const sortedWorkoutsAsc = () => {
-    const sorted = [...filteredWorkouts].sort((a, b) => {
+    const sorted = [...workoutsToDisplay].sort((a, b) => {
       const durationA = parseInt(a.duration, 10);
       const durationB = parseInt(b.duration, 10);
       return durationA - durationB;
     });
-    setSortedWorkouts(sorted);
+    setWorkoutsToDisplay(sorted);
   };
 
-  // Descending Order
+  // Sort workouts in descending order
   const sortedWorkoutsDesc = () => {
-    const sorted = [...filteredWorkouts].sort((a, b) => {
+    const sorted = [...workoutsToDisplay].sort((a, b) => {
       const durationA = parseInt(a.duration, 10);
       const durationB = parseInt(b.duration, 10);
       return durationB - durationA;
     });
-    setSortedWorkouts(sorted);
+    setWorkoutsToDisplay(sorted);
   };
 
-  // Intensity options
+  // Update workouts after filtering or sorting
+  const filterAndSortWorkouts = () => {
+    let filtered = workoutSelector.filter((workout) =>
+      workout.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    // Apply sorting after filtering
+    if (sortOrder === "asc") {
+      filtered = filtered.sort((a, b) => parseInt(a.duration, 10) - parseInt(b.duration, 10));
+    } else if (sortOrder === "desc") {
+      filtered = filtered.sort((a, b) => parseInt(b.duration, 10) - parseInt(a.duration, 10));
+    }
+
+    setWorkoutsToDisplay(filtered);
+  };
+
+  useEffect(() => {
+    filterAndSortWorkouts();
+  }, [search, sortOrder, workoutSelector]);
+
   const intensityOptions = ["low", "moderate", "high"];
 
   // Handlers for workout actions
@@ -151,7 +167,6 @@ const Dashboard = () => {
       alert("Failed to delete All workouts.");
     }
   };
-  const workoutsToDisplay = search ? filteredWorkouts : sortedWorkouts;
 
   return (
     <div>
@@ -208,10 +223,22 @@ const Dashboard = () => {
             value={search}
             onChange={handleSearch}
           />
-          <button className="btn btn-outline btn-success px-3 m-2" onClick={sortedWorkoutsAsc}>
+          <button
+            className="btn btn-outline btn-success px-3 m-2"
+            onClick={() => {
+              setSortOrder("asc");
+              sortedWorkoutsAsc();
+            }}
+          >
             Ascending duration
           </button>
-          <button className="btn btn-outline btn-warning px-3 m-2" onClick={sortedWorkoutsDesc}>
+          <button
+            className="btn btn-outline btn-warning px-3 m-2"
+            onClick={() => {
+              setSortOrder("desc");
+              sortedWorkoutsDesc();
+            }}
+          >
             Descending duration
           </button>
           <button className="btn btn-outline btn-error px-3 m-2" onClick={handleDeleteAllOperations}>
@@ -219,24 +246,23 @@ const Dashboard = () => {
           </button>
         </div>
 
-        {/* Scrollable Cards Section */}
-        <main className="flex-1 space-y-8 overflow-x-auto">
-          <div className="carousel carousel-center rounded-box mt-8 space-x-4 flex-nowrap">
-            {workoutsToDisplay?.length > 0 ? (
-              workoutsToDisplay?.map((workout) => (
-                <div className="carousel-item" key={workout._id}>
-                  <Cards 
-                    {...workout} 
-                    onDelete={() => handleWorkoutDelete(workout._id)} 
-                    onEdit={() => handleWorkoutEdit(workout._id, workout.name, workout.duration, workout.intensity, workout.notes)} 
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="text-white">No workouts available.</div>
-            )}
-          </div>
-        </main>
+        {/* Workout Cards */}
+        <div className="workouts">
+          {workoutsToDisplay.length === 0 ? (
+            <p>No workouts to display</p>
+          ) : (
+            <div className="carousel carousel-center rounded-box mt-8 space-x-4 flex-nowrap">
+              {workoutsToDisplay.map((workout) => (
+                <Cards
+                  key={workout._id}
+                  {...workout}
+                  onDelete={handleWorkoutDelete}
+                  onEdit={handleWorkoutEdit}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
