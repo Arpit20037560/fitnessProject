@@ -5,15 +5,15 @@ import { logOutUser } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  // Fetch the user data from the Redux store
+
   const userSelector = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Safely access the user's name and provide a fallback if not available
-  const userName = userSelector?.name || 'Guest'; // Default to 'Guest' if name is null or undefined
 
-  // Determine if the user is logged in
+  const userName = userSelector?.name || 'Guest';
+
+
   const isLoggedIn = Boolean(userSelector);
 
   // Handle the logout action
@@ -32,9 +32,6 @@ const Header = () => {
           </div>
           <div className="flex-none gap-2 lg:gap-4">
             <button className="btn btn-ghost">Home</button>
-            <button className="btn btn-ghost">About</button>
-            <button className="btn btn-ghost">Workouts</button>
-            <button className="btn btn-ghost">Records</button>
 
             {/* Profile and Logout Section */}
             <div className="dropdown dropdown-end">
