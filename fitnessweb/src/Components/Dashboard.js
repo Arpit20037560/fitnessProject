@@ -69,8 +69,9 @@ const Dashboard = () => {
   // Update workouts after filtering or sorting
   const filterAndSortWorkouts = () => {
     let filtered = workoutSelector.filter((workout) =>
-      workout.name.toLowerCase().includes(search.toLowerCase())
+      workout.name && workout.name.toLowerCase().includes(search.toLowerCase())
     );
+    
 
     // Apply sorting after filtering
     if (sortOrder === "asc") {
@@ -86,7 +87,7 @@ const Dashboard = () => {
     filterAndSortWorkouts();
   }, [search, sortOrder, workoutSelector]);
 
-  const intensityOptions = ["low", "moderate", "high"];
+  const intensityOptions = ["low", "medium", "high"];
 
   // Handlers for workout actions
   const handleWorkoutCreation = async (e) => {
@@ -102,11 +103,11 @@ const Dashboard = () => {
         dispatch(editWorkoutById(response.data));
         setWorkoutName("");
         setDuration("");
-        setIntensity("low"); // Reset to default
+        setIntensity("low"); 
         setNotes("");
         setIsEditable(false);
         setEditId(null);
-        await fetchWorkouts(); // Re-fetch updated workouts
+        await fetchWorkouts(); 
       } catch (error) {
         console.error("Error updating workout:", error.message);
         alert("Failed to update workout.");

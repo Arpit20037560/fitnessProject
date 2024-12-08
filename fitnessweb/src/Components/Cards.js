@@ -20,22 +20,8 @@ const Card = ({
 
 
   return (
-    <div className="bg-gray-900 rounded-2xl border-2 border-transparent bg-clip-padding p-5 w-80 relative shadow-custom transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-custom-lg">
-      {/* Heart Icon */}
-      <div className="absolute top-4 right-4 bg-gradient-to-r from-pink-500 to-transparent p-2 rounded-full flex justify-center items-center text-pink-400 shadow-lg">
-        <svg
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6"
-        >
-          <path d="M12 21C10.28 19.67 1.32 13.45 3.2 8.2c1.5-4.12 5.5-4.12 7.8-1.47C13.3 4.08 17.3 4.08 18.8 8.2c1.88 5.25-7.08 11.47-6.8 12.8z" />
-        </svg>
-      </div>
+    <div className="bg-gray-900 rounded-2xl border-2 border-blue-700 bg-clip-padding p-5 w-80 relative shadow-custom  hover:scale-95 hover:shadow-custom-lg">
+      
 
       {/* Content Section */}
       <div className="flex flex-col text-white">
@@ -57,27 +43,7 @@ const Card = ({
         )}
       </div>
 
-      {/* Graph */}
-      <div className="mt-5">
-        <svg viewBox="0 0 400 100" className="w-full h-24">
-          <path
-            className="line line1"
-            d="M0,50 Q50,30 100,40 T200,60 T300,50 T400,80"
-          />
-          <path
-            className="line line2"
-            d="M0,60 Q50,40 100,50 T200,70 T300,60 T400,90"
-          />
-        </svg>
-        <div className="flex justify-between mt-2 text-gray-400 text-xs">
-          <span>8am</span>
-          <span>10am</span>
-          <span>12pm</span>
-          <span>2pm</span>
-          <span>4pm</span>
-          <span>6pm</span>
-        </div>
-      </div>
+      
 
       <div className='flex items-center justify-between mt-4'>
         {/* Custom Button */}
@@ -137,7 +103,7 @@ const Card = ({
 
         {/* Edited Button */}
         <button className="cursor-pointer inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-mono font-semibold text-rose-600 hover:text-white border-2 border-rose-600 hover:bg-rose-600 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-75 hover:bg-rose-600 duration-300 focus:bg-transparent"
-        onClick={()=>onEdit(name,duration,intensity,notes)}
+        onClick={()=>onEdit(_id,name,duration,intensity,notes)}
         >
           EDIT
         </button>
