@@ -105,6 +105,8 @@ npm test
   React Testing Library: https://testing-library.com/docs/react-testing-library/intro
 
   Daisy UI: https://daisyui.com/docs/
+
+  UI Verse: https://uiverse.io/
   
 **Backend Technologies References:**
 
@@ -123,6 +125,50 @@ npm test
   Cookie-parser: https://www.npmjs.com/package/cookie-parser
 
   Nodemon: https://nodemon.io/
+  
+**Login Page**
+
+![image](https://github.com/user-attachments/assets/4be0378f-12c3-4af1-b230-2b8e62a5b99c)
+
+**Register Page**
+
+![image](https://github.com/user-attachments/assets/d89d84ad-9cd6-4297-84fd-f8d6ace0a4d8)
+
+
+**Dashboard Page**
+
+![image](https://github.com/user-attachments/assets/ecb397f3-3d4d-400e-b08b-7bb557d8081c)
+
+**Search Feature**
+
+![image](https://github.com/user-attachments/assets/1c34a2dd-4bc0-40f2-bf28-77b320affccf)
+
+**Ascending** 
+
+![image](https://github.com/user-attachments/assets/e02cbf77-728c-4ae6-a3d2-ce1dfb42b6e5)
+
+
+
+**Descending**
+
+![image](https://github.com/user-attachments/assets/d0291ebe-69ed-4274-b49a-49d7208e769c)
+
+**Integration And Unittesting**
+
+![image](https://github.com/user-attachments/assets/83e3984d-3c7b-40b5-b781-20225a51bab0)
+
+
+**Conclusion**
+
+Exercise Logging: Users can easily log their exercises and workouts completed during the day, including distance or pounds lifted, calories burned, or time spent. Using the technologies like React, Node. js, MongoDB and JWT Authentication – making it a secure, responsive app. Offering features such as user authentication, workout tracking, real-time progress tracking, and profile management, the application provides users with the ability to maintain and improve their fitness.
+
+This project is a great starting point for anyone looking to create a full-stack application and has very direct integration between front-end and back-end technologies. With best practices such as using Redux for state management, Tailwind CSS for styling, and Mongoose for database, the app is both scalable and easy to use.
+
+
+
+
+
+
 
 
   
