@@ -216,14 +216,16 @@ const Dashboard = () => {
           </form>
         </div>
 
-        {/* Controls Section */}
+        {/* Search Section */}
+
         <div className="flex px-2">
           <input
-            className="rounded-full bg-violet-100 text-xl border-2 border-purple-500 p-4 placeholder-purple-400 focus:text-violet-950 focus:border-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="rounded-full bg-violet-100 text-lg font-sans font-semibold text-black border-2 border-blue-700 p-4 placeholder-gray-500  focus:text-black focus:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter Exercise Name..."
             value={search}
             onChange={handleSearch}
           />
+           {/* Controls Section */}
           <button
             className="btn btn-outline btn-success px-3 m-2"
             onClick={() => {
