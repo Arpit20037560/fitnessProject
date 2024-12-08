@@ -14,7 +14,8 @@ const Card = ({
   maxWeight, 
   maxReps, 
   recordDate,
-  onDelete
+  onDelete,
+  onEdit
 }) => {
 
 
@@ -81,6 +82,7 @@ const Card = ({
       <div className='flex items-center justify-between mt-4'>
         {/* Custom Button */}
         <button
+         data-testid="delete-button-1"
           className="group relative flex h-14 w-14 flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-red-800 bg-red-400 hover:bg-red-600"
           onClick={()=>onDelete(_id)}
         >
@@ -134,7 +136,9 @@ const Card = ({
         </button>
 
         {/* Edited Button */}
-        <button className="cursor-pointer inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-mono font-semibold text-rose-600 hover:text-white border-2 border-rose-600 hover:bg-rose-600 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-75 hover:bg-rose-600 duration-300 focus:bg-transparent">
+        <button className="cursor-pointer inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-mono font-semibold text-rose-600 hover:text-white border-2 border-rose-600 hover:bg-rose-600 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-75 hover:bg-rose-600 duration-300 focus:bg-transparent"
+        onClick={()=>onEdit(name,duration,intensity,notes)}
+        >
           EDIT
         </button>
       </div>
