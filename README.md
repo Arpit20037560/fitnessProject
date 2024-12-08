@@ -44,7 +44,7 @@ npm run build
 npm test
 
 **Backend**:
->Node.js
+Node.js
 
 npm init -y
 
