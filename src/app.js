@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3001",
     credentials: true,
 }));
 
@@ -17,6 +17,7 @@ const recordRouter = require("./routers/recordRouter");
 
 app.use("/auth", authRouter); 
 app.use("/",workoutRouter);
+app.use("/record",recordRouter)
 
 connectDB().then(() => {
     app.listen(3000, () => {
