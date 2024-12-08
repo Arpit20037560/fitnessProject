@@ -67,9 +67,7 @@ const Header = () => {
                 className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li><a>Home</a></li>
-                <li><a>About</a></li>
-                <li><a>Workouts</a></li>
-                <li><a>Records</a></li>
+
               </ul>
             </div>
           </div>
