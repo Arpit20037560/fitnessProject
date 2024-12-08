@@ -4,7 +4,7 @@ const connectDB = async () =>
 {
     try 
     {
-        mongoose.connect("mongodb+srv://Arpit196:Gelhu30080@mongodev.uohce.mongodb.net/fitnessTracker");
+        mongoose.connect("mongodb+srv://arpit196:arpitbeuria@cluster0.uohce.mongodb.net/fitnessTracker");
         console.log("MongoDB connected");
     } 
     catch (error) 
