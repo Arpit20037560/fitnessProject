@@ -45,7 +45,6 @@ npm test
 
 **Backend**:
 Node.js
-
 npm init -y
 
 >Express.js
@@ -70,21 +69,44 @@ npm install cors
 
 **BackendFeatures Implementation**
 
-Secure Authentication: User registration and login with encrypted passwords using Bcrypt and JWT.
-
-Session Management: Secure session handling using Cookies and JWT.
-
-Workout CRUD: Create, Delete, Get, Update Operations.
+  Secure Authentication: User registration and login with encrypted passwords using Bcrypt and JWT.
+  
+  Session Management: Secure session handling using Cookies and JWT.
+  
+  Workout CRUD: Create, Delete, Get, Update Operations.
 
 **FrontendFeatures Implementations**
 
-Login/Registeration/Logout Of User:
+  Login/Registeration/Logout Of User:
+  
+  CRUD Operations: Create, Retrieve,Update Delete Workouts
+  
+  Sorting Algorithm Implementation (Asc, Desc):
+  
+  Search Feature implementation:
 
-CRUD Operations: Create, Retrieve,Update Delete Workouts
+  Testing Using Jest Framework and react testing library
 
-Sorting Algorithm Implementation (Asc, Desc):
+**References**
+**Frontend Technologies References:**
 
-Search Feature implementation:
+  React.js: https://reactjs.org/docs/getting-started.html
+  Tailwind CSS: https://tailwindcss.com/docs
+  React Router: https://reactrouter.com/
+  React Redux: https://redux.js.org/
+  React Testing Library: https://testing-library.com/docs/react-testing-library/intro
+  Daisy UI: https://daisyui.com/docs/
+  
+**Backend Technologies References:**
+
+  Node.js: https://nodejs.org/en/docs/
+  Express.js: https://expressjs.com/en/starter/installing.html
+  MongoDB: https://www.mongodb.com/docs/
+  Mongoose: https://mongoosejs.com/docs/
+  JWT (JSON Web Token): https://jwt.io/introduction/
+  Bcrypt: https://www.npmjs.com/package/bcrypt
+  Cookie-parser: https://www.npmjs.com/package/cookie-parser
+  Nodemon: https://nodemon.io/
 
 
   
