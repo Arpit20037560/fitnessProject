@@ -18,7 +18,7 @@ const workoutSlice = createSlice({
       return state.filter((workout) => workout.id != action.payload);
     },
     deleteWorkoutDetails: (state, action) => {
-      return []; // Clears all workouts
+      return []; 
     },
     editWorkoutById: (state, action) => {
       const { id, updates } = action.payload;
