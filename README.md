@@ -9,61 +9,64 @@ It provides features such as create Workouts , Fetch All Workouts, Delete Workou
 
 **Frontend:**
 >React.js
-npx create-react-app fitnessProject
+ npx create-react-app fitnessProject
 
 >Tailwind CSS:
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init
+ npm install -D tailwindcss postcss autoprefixer
+ npx tailwindcss init
 
 >React Router:
-npm install react react-dom
+ npm install react react-dom
 
 >React Redux
-npm install @reduxjs/toolkit
-mpm i react-redux
+ npm install @reduxjs/toolkit
+ mpm i react-redux
 
 >React Testing Library
-npm install @testing-library/react @testing-library/jest-dom
+ npm install @testing-library/react @testing-library/jest-dom
 
 
 >Jest
-npm install --save-dev jest
-npm install @testing-library/jest-dom --save-dev
+ npm install --save-dev jest
+ npm install @testing-library/jest-dom --save-dev
 
 >Daisy UI
-npm install daisyui
+ npm install daisyui
 
 **To Run the Development Server:**
 
 npm start
+
 **To Build the Production Version:**
 
 npm run build
+
 **To Test with Jest and React Testing Library:**
 
 npm test
 
 **Backend**:
-Node.js
-npm init -y
+
+>Node.js
+ npm init -y
 
 >Express.js
-npm i express
+ npm i express
 
 >MongoDB and Mongoose
-npm i mongoose mongodb
+ npm i mongoose mongodb
 
 >JWT
-npm install jsonwebtoken
+ npm install jsonwebtoken
 
 >Bcrypt
-npm install bcrypt
+ npm install bcrypt
 
 >Cookies
-npm install cookie-parser
+ npm install cookie-parser
 
 >Cors
-npm install cors
+ npm install cors
 
 **Features Implemented**
 
@@ -88,24 +91,37 @@ npm install cors
   Testing Using Jest Framework and react testing library
 
 **References**
+
 **Frontend Technologies References:**
 
   React.js: https://reactjs.org/docs/getting-started.html
+
   Tailwind CSS: https://tailwindcss.com/docs
+
   React Router: https://reactrouter.com/
+
   React Redux: https://redux.js.org/
+
   React Testing Library: https://testing-library.com/docs/react-testing-library/intro
+
   Daisy UI: https://daisyui.com/docs/
   
 **Backend Technologies References:**
 
   Node.js: https://nodejs.org/en/docs/
+
   Express.js: https://expressjs.com/en/starter/installing.html
+
   MongoDB: https://www.mongodb.com/docs/
+
   Mongoose: https://mongoosejs.com/docs/
+
   JWT (JSON Web Token): https://jwt.io/introduction/
+
   Bcrypt: https://www.npmjs.com/package/bcrypt
+
   Cookie-parser: https://www.npmjs.com/package/cookie-parser
+
   Nodemon: https://nodemon.io/
 
 
