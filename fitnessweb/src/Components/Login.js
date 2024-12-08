@@ -4,29 +4,35 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loggedInUser, signUpUser } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { validateLogin, validateSignUp } from '../Validation/Validation'; // Import validation functions
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [signInStatus, setSignInStatus] = useState(false); // false for login, true for signup
+  const [errors, setErrors] = useState({}); // Track form errors
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    const validationErrors = validateLogin({ email, password });
+
+    if (validationErrors.emailError || validationErrors.passwordError) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', {
-        email,
-        password,
-        
-      },
-      {
-        withCredentials: true
-    });
+      const response = await axios.post(
+        'http://localhost:3000/auth/login',
+        { email, password },
+        { withCredentials: true }
+      );
       console.log(response.data);
       dispatch(loggedInUser(response.data));
-      navigate("/dashboard");
+      navigate('/dashboard');
     } catch (error) {
       alert(error.response ? error.response.data.message : 'An error occurred');
     }
@@ -34,41 +40,35 @@ const Login = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    const validationErrors = validateSignUp({ name, email, password, confirmPassword: password });
+
+    if (validationErrors.emailError || validationErrors.passwordError || validationErrors.confirmPasswordError) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:3000/auth/register', {
-        name,
-        email,
-        password,
-      },
-      {
-        withCredentials: true
-    });
+      const response = await axios.post(
+        'http://localhost:3000/auth/register',
+        { name, email, password },
+        { withCredentials: true }
+      );
       console.log(response.data);
       dispatch(signUpUser(response.data));
-      navigate("/dashboard");
+      navigate('/dashboard');
     } catch (error) {
       alert(error.response ? error.response.data.message : 'An error occurred');
     }
   };
 
   const handleSignInStatus = () => {
-    setSignInStatus(false); // Toggle back to login form
+    setSignInStatus(false);
+    setErrors({}); // Reset errors when switching forms
   };
 
   const handleSignUpStatus = () => {
-    setSignInStatus(true); // Toggle to signup form
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    setSignInStatus(true);
+    setErrors({}); // Reset errors when switching forms
   };
 
   return (
@@ -79,7 +79,6 @@ const Login = () => {
           <div className="bg-gray-800 p-10 rounded-xl shadow-lg w-full max-w-lg transform transition duration-300 hover:scale-105">
             <h2 className="text-4xl font-semibold text-center mb-6 text-indigo-500">Welcome Back</h2>
             <form onSubmit={handleLogin} className="space-y-6">
-              {/* Email Input */}
               <label className="block">
                 <span className="text-gray-400">Email</span>
                 <input
@@ -87,12 +86,11 @@ const Login = () => {
                   className="input input-bordered w-full mt-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Enter your email"
                   value={email}
-                  onChange={handleEmailChange}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
+                {errors.emailError && <p className="text-red-500 text-sm">{errors.emailError}</p>}
               </label>
-
-              {/* Password Input */}
               <label className="block">
                 <span className="text-gray-400">Password</span>
                 <input
@@ -100,12 +98,11 @@ const Login = () => {
                   className="input input-bordered w-full mt-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Enter your password"
                   value={password}
-                  onChange={handlePasswordChange}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                {errors.passwordError && <p className="text-red-500 text-sm">{errors.passwordError}</p>}
               </label>
-
-              {/* Submit Button */}
               <button
                 type="submit"
                 className="btn btn-primary w-full mt-4 py-2 text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -113,14 +110,10 @@ const Login = () => {
                 Login
               </button>
             </form>
-
             <div className="text-center mt-4">
               <p className="text-sm text-gray-400">
                 Don't have an account?{' '}
-                <button
-                  onClick={handleSignUpStatus}
-                  className="text-indigo-500 hover:underline"
-                >
+                <button onClick={handleSignUpStatus} className="text-indigo-500 hover:underline">
                   Sign up
                 </button>
               </p>
@@ -132,20 +125,17 @@ const Login = () => {
           <div className="bg-gray-800 p-10 rounded-xl shadow-lg w-full max-w-lg transform transition duration-300 hover:scale-105">
             <h2 className="text-4xl font-semibold text-center mb-6 text-indigo-500">Create an Account</h2>
             <form onSubmit={handleSignUp} className="space-y-6">
-              {/* Name Input */}
               <label className="block">
                 <span className="text-gray-400">Name</span>
                 <input
                   type="text"
                   className="input input-bordered w-full mt-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Enter your Name"
+                  placeholder="Enter your name"
                   value={name}
-                  onChange={handleNameChange}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </label>
-
-              {/* Email Input */}
               <label className="block">
                 <span className="text-gray-400">Email</span>
                 <input
@@ -153,12 +143,11 @@ const Login = () => {
                   className="input input-bordered w-full mt-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Enter your email"
                   value={email}
-                  onChange={handleEmailChange}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
+                {errors.emailError && <p className="text-red-500 text-sm">{errors.emailError}</p>}
               </label>
-
-              {/* Password Input */}
               <label className="block">
                 <span className="text-gray-400">Password</span>
                 <input
@@ -166,12 +155,11 @@ const Login = () => {
                   className="input input-bordered w-full mt-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Enter your password"
                   value={password}
-                  onChange={handlePasswordChange}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                {errors.passwordError && <p className="text-red-500 text-sm">{errors.passwordError}</p>}
               </label>
-
-              {/* Submit Button */}
               <button
                 type="submit"
                 className="btn btn-primary w-full mt-4 py-2 text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -179,14 +167,10 @@ const Login = () => {
                 Sign Up
               </button>
             </form>
-
             <div className="text-center mt-4">
               <p className="text-sm text-gray-400">
                 Already have an account?{' '}
-                <button
-                  onClick={handleSignInStatus}
-                  className="text-indigo-500 hover:underline"
-                >
+                <button onClick={handleSignInStatus} className="text-indigo-500 hover:underline">
                   Login
                 </button>
               </p>
