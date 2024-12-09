@@ -30,7 +30,7 @@ const workoutRouter = require("./src/routers/workoutRouter");
 const recordRouter = require("./src/routers/recordRouter");
 
 app.use("/auth", authRouter);
-app.use("/", workoutRouter);
+app.use("/workout", workoutRouter);
 app.use("/record", recordRouter);
 
 // Serve React Frontend production script

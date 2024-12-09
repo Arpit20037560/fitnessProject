@@ -12,7 +12,7 @@ const Dashboard = () => {
   // Fetch workouts from the backend
   const fetchWorkouts = async () => {
     try {
-      const response = await api.get("/", {
+      const response = await api.get("/workout", {
         withCredentials: true,
       });
       if (response != null) {
@@ -97,7 +97,7 @@ const Dashboard = () => {
       // Edit existing workout
       try {
         const response = await api.patch(
-          `/update/${editId}`,
+          `workout/update/${editId}`,
           { name, duration, intensity, notes },
           { withCredentials: true }
         );
@@ -117,7 +117,7 @@ const Dashboard = () => {
       // Create new workout
       try {
         const response = await api.post(
-          "/create",
+          "workout/create",
           { name, duration, intensity, notes },
           { withCredentials: true }
         );
@@ -136,7 +136,7 @@ const Dashboard = () => {
 
   const handleWorkoutDelete = async (id) => {
     try {
-      await api.delete(`/delete/${id}`, {
+      await api.delete(`workout/delete/${id}`, {
         withCredentials: true,
       });
       dispatch(deleteWorkoutDetailsById(id));
@@ -158,7 +158,7 @@ const Dashboard = () => {
 
   const handleDeleteAllOperations = async () => {
     try {
-      await api.delete(`/deleteAll`, {
+      await api.delete(`workout/deleteAll`, {
         withCredentials: true,
       });
       dispatch(deleteWorkoutDetails());
@@ -251,7 +251,7 @@ const Dashboard = () => {
         </div>
 
         {/* Workout Cards */}
-        <div className="workouts">
+        <div className="workouts m-3 ml-5">
           {workoutsToDisplay.length === 0 ? (
             <p>No workouts to display</p>
           ) : (
