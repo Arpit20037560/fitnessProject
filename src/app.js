@@ -19,6 +19,14 @@ app.use("/auth", authRouter);
 app.use("/",workoutRouter);
 app.use("/record",recordRouter)
 
+//AZURE Setup
+app.use(express.static("./fitnessweb/build"));
+app.get("*",(req,res)=>
+{
+    res.sendFile(path.resolve(__dirname,"fitnessweb","build","index.html"))
+})
+
+
 connectDB().then(() => {
     app.listen(3000, () => {
         console.log("My Fitness App started at port 3000");
