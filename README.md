@@ -170,12 +170,6 @@ https://create-react-app.dev/docs/deployment/
 
 
 
-**Conclusion**
-
-Exercise Logging: Users can easily log their exercises and workouts completed during the day, including distance or pounds lifted, calories burned, or time spent. Using the technologies like React, Node. js, MongoDB and JWT Authentication – making it a secure, responsive app. Offering features such as user authentication, workout tracking, real-time progress tracking, and profile management, the application provides users with the ability to maintain and improve their fitness.
-
-This project is a great starting point for anyone looking to create a full-stack application and has very direct integration between front-end and back-end technologies. With best practices such as using Redux for state management, Tailwind CSS for styling, and Mongoose for database, the app is both scalable and easy to use.
-
 App Deployed to Azure
 
 ![image](https://github.com/user-attachments/assets/fe9701fe-1f35-4d5e-bccd-22528329f714)
@@ -183,6 +177,13 @@ App Deployed to Azure
 Frontend and Backend APIs Deployed to Azure
 
 ![image](https://github.com/user-attachments/assets/d7634f17-bc86-428d-96f0-fc642ea09e3a)
+
+
+**Conclusion**
+
+Exercise Logging: Users can easily log their exercises and workouts completed during the day, including distance or pounds lifted, calories burned, or time spent. Using the technologies like React, Node. js, MongoDB and JWT Authentication – making it a secure, responsive app. Offering features such as user authentication, workout tracking, real-time progress tracking, and profile management, the application provides users with the ability to maintain and improve their fitness.
+
+This project is a great starting point for anyone looking to create a full-stack application and has very direct integration between front-end and back-end technologies. With best practices such as using Redux for state management, Tailwind CSS for styling, and Mongoose for database, the app is both scalable and easy to use.
 
 
 
