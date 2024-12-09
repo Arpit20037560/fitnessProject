@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: "https://fitnessproject-azure-app-service-plan-d9b0dqeqffatd5ea.westeurope-01.azurewebsites.net/",
     withCredentials: true,
 })
 

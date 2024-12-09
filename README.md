@@ -163,6 +163,7 @@ npm test
 Create Resource group - Done
 Create app service plan - Done
 Create and Authenticate with Github - Done
+Buid client static files - done (npm run build)
 
 
 
