@@ -158,6 +158,14 @@ npm test
 ![image](https://github.com/user-attachments/assets/83e3984d-3c7b-40b5-b781-20225a51bab0)
 
 
+**Azure Deployment**
+
+Create Resource group - Done
+Create app service plan - Done
+Create and Authenticate with Github - Done
+
+
+
 **Conclusion**
 
 Exercise Logging: Users can easily log their exercises and workouts completed during the day, including distance or pounds lifted, calories burned, or time spent. Using the technologies like React, Node. js, MongoDB and JWT Authentication – making it a secure, responsive app. Offering features such as user authentication, workout tracking, real-time progress tracking, and profile management, the application provides users with the ability to maintain and improve their fitness.
