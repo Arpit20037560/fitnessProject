@@ -162,8 +162,11 @@ npm test
 
 Create Resource group - Done
 Create app service plan - Done
+Create app service web app
 Create and Authenticate with Github - Done
 Buid client static files - done (npm run build)
+
+https://create-react-app.dev/docs/deployment/
 
 
 
