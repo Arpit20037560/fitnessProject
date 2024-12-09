@@ -34,7 +34,10 @@ app.use("/workout", workoutRouter);
 app.use("/record", recordRouter);
 
 // Serve React Frontend production script
+//handle all the static files
 app.use(express.static("./fitnessweb/build"));
+
+//allowed all the routers and giving path.resolve to get the path
 app.get("*",(req,res)=>{
   res.sendFile(path.resolve(__dirname, "fitnessweb","build","index.html"))
 })

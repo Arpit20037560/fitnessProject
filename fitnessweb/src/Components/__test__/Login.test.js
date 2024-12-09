@@ -1,23 +1,24 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Login from "../Login";
-import axios from 'axios';
-import { Provider } from 'react-redux';
-import { store } from '../../features/appStore'; 
-import { BrowserRouter as Router } from 'react-router-dom';
-import userReducer from "../../features/userSlice"
-import { configureStore } from '@reduxjs/toolkit';
-import '@testing-library/jest-dom';
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import { BrowserRouter as Router } from "react-router-dom";
+import userReducer from "../../features/userSlice";
+import api from "../../API/AxiosSetup";
+import "@testing-library/jest-dom";
 
-// Mock axios
-jest.mock('axios');
+// Mock the API instance
+jest.mock("../../API/AxiosSetup");
 
+
+// Create a mock Redux store
 const mockStore = configureStore({
-    reducer:{
-        user: userReducer
-    }
-})
+  reducer: {
+    user: userReducer,
+  },
+});
 
-// Helper function to render component with the Redux store and router
+// Helper function to render components with Redux store and Router
 const renderWithProviders = (ui) => {
   return render(
     <Provider store={mockStore}>
@@ -25,96 +26,94 @@ const renderWithProviders = (ui) => {
     </Provider>
   );
 };
-//render test
-describe('Login Component', () => {
-  test('renders login form by default', () => {
+
+describe("Login Component", () => {
+  beforeEach(() => {
+    jest.clearAllMocks(); // Clear mocks before each test
+  });
+
+  test("renders login form by default", () => {
     renderWithProviders(<Login />);
 
+    // Check if login form elements are displayed
     expect(screen.getByText(/Welcome Back/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Enter your email/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Enter your password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Login/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Login/i })).toBeInTheDocument();
   });
 
-  //login test
-  test('handles login correctly', async () => {
-    // Mock successful login API response
-    axios.post.mockResolvedValueOnce({
-        data: { token: 'fake-token', user: { email: 'test@example.com' } }
-      });
+  test("handles login correctly", async () => {
+    // Mock API response for login
+    api.post.mockResolvedValueOnce({
+      data: { token: "fake-token", user: { email: "test@example.com" } },
+    });
 
     renderWithProviders(<Login />);
 
+    // Fill out and submit the login form
     fireEvent.change(screen.getByPlaceholderText(/Enter your email/i), {
-        target: { value: 'test@example.com' }
+      target: { value: "test@example.com" },
     });
     fireEvent.change(screen.getByPlaceholderText(/Enter your password/i), {
-        target: { value: 'password123' }
+      target: { value: "password123" },
     });
+    fireEvent.click(screen.getByRole("button", { name: /Login/i }));
 
-    fireEvent.click(screen.getByRole('button', { name: /Login/i }));
-
+    // Assert API call and parameters
     await waitFor(() => {
-        expect(axios.post).toHaveBeenCalledWith(
-          'http://localhost:3000/auth/login',
-          { email: 'test@example.com', password: 'password123' },
-          expect.objectContaining({ withCredentials: true }) // Check for withCredentials in the third argument
-        );
-      });
-});
+      expect(api.post).toHaveBeenCalledWith(
+        "/auth/login",
+        { email: "test@example.com", password: "password123" },
+        expect.objectContaining({ withCredentials: true })
+      );
+    });
+  });
 
-//logout Component
-test('renders signup form when "Sign up" button is clicked', async () => {
+  test("renders signup form when 'Sign up' button is clicked", async () => {
     renderWithProviders(<Login />);
 
-    // Click on the "Sign up" button
-    fireEvent.click(screen.getByRole('button', { name: /Sign up/i }));
+    // Switch to signup form
+    fireEvent.click(screen.getByRole("button", { name: /Sign up/i }));
 
-    // After clicking, ensure that the signup form is displayed
+    // Assert signup form elements are displayed
     await waitFor(() => {
       expect(screen.getByText(/Create an Account/i)).toBeInTheDocument();
     });
-
     expect(screen.getByPlaceholderText(/Enter your email/i)).toBeInTheDocument();
-      expect(screen.getByPlaceholderText(/Enter your password/i)).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /Sign Up/i })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Enter your password/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Sign Up/i })).toBeInTheDocument();
   });
 
-  //logout API Axios
-  test('handles signup correctly', async () => {
-
-    axios.post.mockResolvedValueOnce({
-        data: { token: 'fake-signup-token', user: { email: 'test@example.com' } }
-    })
-
-    renderWithProviders(<Login/>);
-
-    fireEvent.click(screen.getByRole('button', { name: /Sign up/i }));
-
-    fireEvent.change(screen.getByPlaceholderText(/Enter your name/i), {
-        target: { value: 'Arpit Beuria' }
-      });
-
-
-    fireEvent.change(screen.getByPlaceholderText(/Enter your email/i),{
-        target:{ value : 'test@example.com'}
+  test("handles signup correctly", async () => {
+    // Mock API response for signup
+    api.post.mockResolvedValueOnce({
+      data: { token: "fake-signup-token", user: { email: "test@example.com" } },
     });
 
-  
+    renderWithProviders(<Login />);
+
+    // Switch to signup form and fill it out
+    fireEvent.click(screen.getByRole("button", { name: /Sign up/i }));
+    fireEvent.change(screen.getByPlaceholderText(/Enter your name/i), {
+      target: { value: "Arpit Beuria" },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/Enter your email/i), {
+      target: { value: "test@example.com" },
+    });
     fireEvent.change(screen.getByPlaceholderText(/Enter your password/i), {
-        target: { value: 'password123' }
-      });
+      target: { value: "password123" },
+    });
 
-      fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
-      
-      await waitFor(()=>{
-        expect(axios.post).toHaveBeenCalledWith(
-            'http://localhost:3000/auth/register',
-            { email: 'test@example.com',name:'Arpit Beuria', password: 'password123' },
-            expect.objectContaining({ withCredentials: true })
-        )
-      })
+    // Submit the signup form
+    fireEvent.click(screen.getByRole("button", { name: /Sign Up/i }));
 
-  })
-
+    // Assert API call and parameters
+    await waitFor(() => {
+      expect(api.post).toHaveBeenCalledWith(
+        "/auth/register",
+        { email: "test@example.com", name: "Arpit Beuria", password: "password123" },
+        expect.objectContaining({ withCredentials: true })
+      );
+    });
+  });
 });

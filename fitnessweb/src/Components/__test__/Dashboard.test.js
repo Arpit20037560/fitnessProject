@@ -5,8 +5,9 @@ import workoutReducer from "../../features/workoutsSlice";
 import { Provider } from "react-redux";
 import Dashboard from "../Dashboard";
 import "@testing-library/jest-dom";
+import api from "../../API/AxiosSetup";
 
-jest.mock("axios");
+jest.mock("../../API/AxiosSetup");
 
 jest.mock("../Header", () => () => <div>Mocked Header</div>);
 
@@ -29,7 +30,7 @@ describe("Fetch All API Test", () => {
     });
 
     // Mock API responses
-    axios.get.mockResolvedValue({
+    api.get.mockResolvedValue({
       data: { workouts: mockWorkouts },
     });
 
@@ -49,7 +50,7 @@ describe("Fetch All API Test", () => {
       });
     });
 
-    expect(axios.get).toHaveBeenCalledWith("http://localhost:3000/", {
+    expect(api.get).toHaveBeenCalledWith("/workout", {
       withCredentials: true,
     });
   });
@@ -71,7 +72,7 @@ describe('Create Workout API Test', () => {
   
       test('should create a new workout', async () => {
         // Mock the axios POST request with the response data
-        axios.post.mockResolvedValue({
+        api.post.mockResolvedValue({
           data: {
             _id: '3',
             name: 'Running',
@@ -99,8 +100,8 @@ describe('Create Workout API Test', () => {
       
         // Wait for the axios POST request to be made and validate the API call
         await waitFor(() => {
-          expect(axios.post).toHaveBeenCalledWith(
-            'http://localhost:3000/create', 
+          expect(api.post).toHaveBeenCalledWith(
+            'workout/create', 
             {
               name: 'Running',
               duration: '30 minutes',
@@ -115,5 +116,3 @@ describe('Create Workout API Test', () => {
   });
 
 
-
-  

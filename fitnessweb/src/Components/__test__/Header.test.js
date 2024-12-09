@@ -5,10 +5,11 @@ import { Provider } from "react-redux";
 import { MemoryRouter, useNavigate } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer, { logOutUser } from "../../features/userSlice";
+import api from "../../API/AxiosSetup"; 
 import axios from "axios";
 
 // Mock Axios
-jest.mock("axios");
+jest.mock("../../API/AxiosSetup");
 
 // Mock useNavigate hook from react-router-dom
 jest.mock("react-router-dom", () => ({
@@ -65,7 +66,7 @@ describe("Header Page Test Cases", () => {
 
   it("should call the logout API, dispatch the logout action, and navigate to the Home Page", async () => {
     // Mock the axios POST request
-    axios.post.mockResolvedValue({});
+    api.post.mockResolvedValue({});
 
     const store = configureStore({
       reducer: {
@@ -104,7 +105,7 @@ describe("Header Page Test Cases", () => {
 
     // Wait for axios.post to be called with the correct URL
     await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledWith("http://localhost:3000/auth/logout");
+      expect(api.post).toHaveBeenCalledWith("/auth/logout");
     });
 
     // Check that the logOutUser action was dispatched
