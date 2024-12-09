@@ -53,7 +53,7 @@ authRouter.post("/register", async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       maxAge: 8 * 60 * 60 * 1000,
-      sameSite: 'None' 
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
     });
 
     // Send the response with the user data
@@ -96,7 +96,7 @@ authRouter.post("/login", async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       maxAge: 8 * 60 * 60 * 1000,
-       sameSite: 'None'
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
     });
 
     // Send the user data (excluding password)
