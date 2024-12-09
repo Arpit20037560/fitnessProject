@@ -176,6 +176,16 @@ Exercise Logging: Users can easily log their exercises and workouts completed du
 
 This project is a great starting point for anyone looking to create a full-stack application and has very direct integration between front-end and back-end technologies. With best practices such as using Redux for state management, Tailwind CSS for styling, and Mongoose for database, the app is both scalable and easy to use.
 
+App Deployed to Azure
+
+![image](https://github.com/user-attachments/assets/fe9701fe-1f35-4d5e-bccd-22528329f714)
+
+Frontend and Backend APIs Deployed to Azure
+
+![image](https://github.com/user-attachments/assets/d7634f17-bc86-428d-96f0-fc642ea09e3a)
+
+
+
 
 
 
