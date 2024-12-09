@@ -1,36 +1,47 @@
-const connectDB = require("./config/dbConfig");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const cors = require('cors');
+const cors = require("cors");
+const path = require("path"); 
+const connectDB = require("./config/dbConfig");
+
+require("dotenv").config();
+
 
 const app = express();
+
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: "http://localhost:3001",
+app.use(
+  cors({
+    origin: "https://fitnessproject-b8ckarguh0hvehg4.uksouth-01.azurewebsites.net", // Update to your deployed domain
     credentials: true,
-}));
+  })
+);
 
-const authRouter = require("./routers/authRouter"); 
+// Routers
+const authRouter = require("./routers/authRouter");
 const workoutRouter = require("./routers/workoutRouter");
 const recordRouter = require("./routers/recordRouter");
 
-app.use("/auth", authRouter); 
-app.use("/",workoutRouter);
-app.use("/record",recordRouter)
+app.use("/auth", authRouter);
+app.use("/", workoutRouter);
+app.use("/record", recordRouter);
 
-//AZURE Setup
-app.use(express.static("./fitnessweb/build"));
-app.get("*",(req,res)=>
-{
-    res.sendFile(path.resolve(__dirname,"fitnessweb","build","index.html"))
-})
-
-
-connectDB().then(() => {
-    app.listen(3000, () => {
-        console.log("My Fitness App started at port 3000");
-    });
-}).catch((err) => {
-    console.log("DB connection failed: " + err.message);
+// Serve React Frontend
+app.use(express.static(path.join(__dirname, "fitnessweb", "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "fitnessweb", "build", "index.html"));
 });
+
+// Database Connection and Server Start
+connectDB()
+  .then(() => {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`My Fitness App started at port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("DB connection failed: " + err.message);
+  });
