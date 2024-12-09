@@ -8,5 +8,6 @@ const config = {
 };
 
 const currentEnv = process.env.REACT_APP_ENV || "development";
+console.log(currentEnv);
 
 export default config[currentEnv];
