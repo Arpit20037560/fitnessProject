@@ -52,7 +52,8 @@ authRouter.post("/register", async (req, res) => {
     res.cookie('token', jwtToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 8 * 60 * 60 * 1000, 
+      maxAge: 8 * 60 * 60 * 1000,
+      sameSite: 'None' 
     });
 
     // Send the response with the user data
@@ -78,9 +79,6 @@ authRouter.post("/login", async (req, res) => {
     // Trim the password and compare it with the stored hash
     const trimmedPassword = password.trim(); 
     const isPasswordAllowed = await bcrypt.compare(trimmedPassword, loggedInUser.password);
-    console.log(`Entered Password: ${password}`);
-    console.log(`Stored Hashed Password: ${loggedInUser.password}`);
-    console.log(`Password Comparison Result: ${isPasswordAllowed}`);
 
     if (!isPasswordAllowed) {
       return res.status(400).json({ message: "Password is invalid" });
@@ -97,7 +95,8 @@ authRouter.post("/login", async (req, res) => {
     res.cookie('token', jwtToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 8 * 60 * 60 * 1000, // 8 hours
+      maxAge: 8 * 60 * 60 * 1000,
+       sameSite: 'None'
     });
 
     // Send the user data (excluding password)
