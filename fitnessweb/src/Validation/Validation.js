@@ -20,9 +20,8 @@ export const validateEmail = (email) => {
     return null;
   };
   
-  export const validateLogin = ({ email, password }) => ({
+  export const validateLogin = ({ email}) => ({
     emailError: validateEmail(email),
-    passwordError: validatePassword(password),
   });
   
   export const validateSignUp = ({ email, password }) => {

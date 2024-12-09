@@ -7,21 +7,20 @@ import { useNavigate } from 'react-router-dom';
 import { validateLogin, validateSignUp } from '../Validation/Validation';
 import api from '../API/AxiosSetup';
 
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [signInStatus, setSignInStatus] = useState(false); // false for login, true for signup
-  const [errors, setErrors] = useState({}); // Track form errors
+  const [signInStatus, setSignInStatus] = useState(false); 
+  const [errors, setErrors] = useState({}); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const validationErrors = validateLogin({ email, password });
+    const validationErrors = validateLogin({ email});
 
-    if (validationErrors.emailError || validationErrors.passwordError) {
+    if (validationErrors.emailError ) {
       setErrors(validationErrors);
       return;
     }
@@ -42,16 +41,16 @@ const Login = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const validationErrors = validateSignUp({ name, email, password, confirmPassword: password });
+    const validationErrors = validateSignUp({ name, email, password });
 
-    if (validationErrors.emailError || validationErrors.passwordError || validationErrors.confirmPasswordError) {
+    if (validationErrors.emailError || validationErrors.passwordError) {
       setErrors(validationErrors);
       return;
     }
 
     try {
       const response = await api.post(
-        'auth/register',
+        '/auth/register',
         { name, email, password },
         { withCredentials: true }
       );
@@ -65,12 +64,12 @@ const Login = () => {
 
   const handleSignInStatus = () => {
     setSignInStatus(false);
-    setErrors({}); // Reset errors when switching forms
+    setErrors({}); 
   };
 
   const handleSignUpStatus = () => {
     setSignInStatus(true);
-    setErrors({}); // Reset errors when switching forms
+    setErrors({}); 
   };
 
   return (

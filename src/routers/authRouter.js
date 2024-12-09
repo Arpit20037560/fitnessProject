@@ -33,7 +33,7 @@ authRouter.post("/register", async (req, res) => {
     const user = new User({
       name,
       email,
-      password: hashedPassword, // Save hashed password
+      password: hashedPassword, 
     });
 
     // Save in DB
@@ -44,7 +44,7 @@ authRouter.post("/register", async (req, res) => {
     // Generate JWT
     const jwtToken = jwt.sign(
       { userId: user._id, email: user.email },
-      "Fitness@123",
+      process.env.JWT_SECRET || "Fitness@123",
       { expiresIn: '8h' }
     );
 
@@ -52,7 +52,7 @@ authRouter.post("/register", async (req, res) => {
     res.cookie('token', jwtToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 8 * 60 * 60 * 1000, // 8 hours
+      maxAge: 8 * 60 * 60 * 1000, 
     });
 
     // Send the response with the user data
@@ -75,8 +75,12 @@ authRouter.post("/login", async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
 
-    // Compare password
-    const isPasswordAllowed = await bcrypt.compare(password, loggedInUser.password); // Correct usage
+    // Trim the password and compare it with the stored hash
+    const trimmedPassword = password.trim(); 
+    const isPasswordAllowed = await bcrypt.compare(trimmedPassword, loggedInUser.password);
+    console.log(`Entered Password: ${password}`);
+    console.log(`Stored Hashed Password: ${loggedInUser.password}`);
+    console.log(`Password Comparison Result: ${isPasswordAllowed}`);
 
     if (!isPasswordAllowed) {
       return res.status(400).json({ message: "Password is invalid" });
@@ -85,7 +89,7 @@ authRouter.post("/login", async (req, res) => {
     // Generate JWT
     const jwtToken = jwt.sign(
       { userId: loggedInUser._id, email: loggedInUser.email },
-      "Fitness@123",
+      process.env.JWT_SECRET || "Fitness@123", 
       { expiresIn: '8h' }
     );
 
@@ -102,7 +106,6 @@ authRouter.post("/login", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
 
 // Logout
 authRouter.post("/logout", async (req, res) => {
