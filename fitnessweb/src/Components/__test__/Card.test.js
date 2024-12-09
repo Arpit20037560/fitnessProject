@@ -52,7 +52,7 @@ describe("Cards Component", () => {
 
     fireEvent.click(screen.getByText("EDIT"));
 
-    expect(mockEdit).toHaveBeenCalledWith("Push-up", "15", "high", "Good workout");
+    expect(mockEdit).toHaveBeenCalledWith("1","Push-up", "15", "high", "Good workout");
   })
 //Delete API Function
 it("Should delete", async()=>
