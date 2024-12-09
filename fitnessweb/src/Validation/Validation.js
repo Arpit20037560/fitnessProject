@@ -25,13 +25,11 @@ export const validateEmail = (email) => {
     passwordError: validatePassword(password),
   });
   
-  export const validateSignUp = ({ email, password, confirmPassword }) => {
+  export const validateSignUp = ({ email, password }) => {
     const emailError = validateEmail(email);
     const passwordError = validatePassword(password);
   
-    const confirmPasswordError =
-      password !== confirmPassword ? "Passwords do not match." : null;
   
-    return { emailError, passwordError, confirmPasswordError };
+    return { emailError, passwordError};
   };
   
