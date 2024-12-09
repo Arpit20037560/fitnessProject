@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { createWorkouts, getWorkoutDetails, deleteWorkoutDetailsById, editWorkoutById, deleteWorkoutDetails } from "../features/workoutsSlice";
 import Cards from "./Cards";
+import api from "../API/AxiosSetup";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const Dashboard = () => {
   // Fetch workouts from the backend
   const fetchWorkouts = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/", {
+      const response = await api.get("/", {
         withCredentials: true,
       });
       if (response != null) {
@@ -95,8 +96,8 @@ const Dashboard = () => {
     if (isEditable) {
       // Edit existing workout
       try {
-        const response = await axios.patch(
-          `http://localhost:3000/update/${editId}`,
+        const response = await api.patch(
+          `/update/${editId}`,
           { name, duration, intensity, notes },
           { withCredentials: true }
         );
@@ -115,8 +116,8 @@ const Dashboard = () => {
     } else {
       // Create new workout
       try {
-        const response = await axios.post(
-          "http://localhost:3000/create",
+        const response = await api.post(
+          "/create",
           { name, duration, intensity, notes },
           { withCredentials: true }
         );
@@ -135,7 +136,7 @@ const Dashboard = () => {
 
   const handleWorkoutDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/delete/${id}`, {
+      await api.delete(`/delete/${id}`, {
         withCredentials: true,
       });
       dispatch(deleteWorkoutDetailsById(id));
@@ -157,7 +158,7 @@ const Dashboard = () => {
 
   const handleDeleteAllOperations = async () => {
     try {
-      await axios.delete(`http://localhost:3000/deleteAll`, {
+      await api.delete(`/deleteAll`, {
         withCredentials: true,
       });
       dispatch(deleteWorkoutDetails());

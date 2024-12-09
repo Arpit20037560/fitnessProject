@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutUser } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
+import api from '../API/AxiosSetup';
 
 const Header = () => {
 
@@ -18,7 +19,7 @@ const Header = () => {
 
   // Handle the logout action
   const handleLogout = async () => {
-    axios.post("http://localhost:3000/auth/logout");
+    api.post("/auth/logout");
     dispatch(logOutUser());
     navigate("/");
   };

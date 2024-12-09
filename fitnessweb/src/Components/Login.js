@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { loggedInUser, signUpUser } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { validateLogin, validateSignUp } from '../Validation/Validation';
+import api from '../API/AxiosSetup';
 
 
 const Login = () => {
@@ -26,8 +27,8 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(
-        'http://localhost:3000/auth/login',
+      const response = await api.post(
+        '/auth/login',
         { email, password },
         { withCredentials: true }
       );
@@ -49,8 +50,8 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(
-        'http://localhost:3000/auth/register',
+      const response = await api.post(
+        'auth/register',
         { name, email, password },
         { withCredentials: true }
       );
