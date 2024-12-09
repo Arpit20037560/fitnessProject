@@ -9,12 +9,17 @@ require("dotenv").config();
 
 const app = express();
 
+const allowedOrigins = [
+    "http://localhost:3000", 
+    "https://fitnessproject-b8ckarguh0hvehg4.uksouth-01.azurewebsites.net" 
+  ];
+
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://fitnessproject-b8ckarguh0hvehg4.uksouth-01.azurewebsites.net", // Update to your deployed domain
+    origin:allowedOrigins,
     credentials: true,
   })
 );
@@ -28,7 +33,7 @@ app.use("/auth", authRouter);
 app.use("/", workoutRouter);
 app.use("/record", recordRouter);
 
-// Serve React Frontend
+// Serve React Frontend production script
 app.use(express.static(path.join(__dirname, "fitnessweb", "build")));
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "fitnessweb", "build", "index.html"));
@@ -37,7 +42,7 @@ app.get("*", (req, res) => {
 // Database Connection and Server Start
 connectDB()
   .then(() => {
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 8000;
     app.listen(PORT, () => {
       console.log(`My Fitness App started at port ${PORT}`);
     });
