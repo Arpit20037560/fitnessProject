@@ -1,13 +1,13 @@
 # fitnessProject
 
-** Introduction**
+## Introduction
 
 The Fitness Tracker Application is a  web application designed to help users manage and monitor their fitness journeys. 
 It provides features such as create Workouts , Fetch All Workouts, Delete Workouts By Id, Delete All Workouts, Edit workout By Id
 
-**Technologies and Tools Used**
+##Technologies and Tools Used
 
-**Frontend:**
+###Frontend:
 >React.js
  npx create-react-app fitnessProject
 
@@ -45,7 +45,7 @@ npm run build
 
 npm test
 
-**Backend**:
+###Backend:
 
 >Node.js
  npm init -y
@@ -68,9 +68,9 @@ npm test
 >Cors
  npm install cors
 
-**Features Implemented**
+##Features Implemented
 
-**BackendFeatures Implementation**
+###BackendFeatures Implementation
 
   Secure Authentication: User registration and login with encrypted passwords using Bcrypt and JWT.
   
@@ -78,7 +78,7 @@ npm test
   
   Workout CRUD: Create, Delete, Get, Update Operations.
 
-**FrontendFeatures Implementations**
+###FrontendFeatures Implementations
 
   Login/Registeration/Logout Of User:
   
@@ -90,9 +90,9 @@ npm test
 
   Testing Using Jest Framework and react testing library
 
-**References**
+##References
 
-**Frontend Technologies References:**
+###Frontend Technologies References:**
 
   React.js: https://reactjs.org/docs/getting-started.html
 
@@ -108,7 +108,7 @@ npm test
 
   UI Verse: https://uiverse.io/
   
-**Backend Technologies References:**
+###Backend Technologies References:
 
   Node.js: https://nodejs.org/en/docs/
 
@@ -126,39 +126,39 @@ npm test
 
   Nodemon: https://nodemon.io/
   
-**Login Page**
+###Login Page
 
 ![image](https://github.com/user-attachments/assets/4be0378f-12c3-4af1-b230-2b8e62a5b99c)
 
-**Register Page**
+###egister Page**
 
 ![image](https://github.com/user-attachments/assets/d89d84ad-9cd6-4297-84fd-f8d6ace0a4d8)
 
 
-**Dashboard Page**
+###Dashboard Page**
 
 ![image](https://github.com/user-attachments/assets/ecb397f3-3d4d-400e-b08b-7bb557d8081c)
 
-**Search Feature**
+###Search Feature
 
 ![image](https://github.com/user-attachments/assets/1c34a2dd-4bc0-40f2-bf28-77b320affccf)
 
-**Ascending** 
+###Ascending
 
 ![image](https://github.com/user-attachments/assets/e02cbf77-728c-4ae6-a3d2-ce1dfb42b6e5)
 
 
 
-**Descending**
+###Descending
 
 ![image](https://github.com/user-attachments/assets/d0291ebe-69ed-4274-b49a-49d7208e769c)
 
-**Integration And Unittesting**
+###Integration And Unittesting
 
 ![image](https://github.com/user-attachments/assets/83e3984d-3c7b-40b5-b781-20225a51bab0)
 
 
-**Azure Deployment**
+##Azure Deployment
 
 Create Resource group - Done
 Create app service plan - Done
@@ -170,16 +170,16 @@ https://create-react-app.dev/docs/deployment/
 
 
 
-App Deployed to Azure
+###App Deployed to Azure
 
 ![image](https://github.com/user-attachments/assets/fe9701fe-1f35-4d5e-bccd-22528329f714)
 
-Frontend and Backend APIs Deployed to Azure
+###Frontend and Backend APIs Deployed to Azure
 
 ![image](https://github.com/user-attachments/assets/d7634f17-bc86-428d-96f0-fc642ea09e3a)
 
 
-**Conclusion**
+##Conclusion
 
 Exercise Logging: Users can easily log their exercises and workouts completed during the day, including distance or pounds lifted, calories burned, or time spent. Using the technologies like React, Node. js, MongoDB and JWT Authentication – making it a secure, responsive app. Offering features such as user authentication, workout tracking, real-time progress tracking, and profile management, the application provides users with the ability to maintain and improve their fitness.
 
