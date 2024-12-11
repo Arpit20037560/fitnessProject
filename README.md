@@ -130,12 +130,12 @@ npm test
 
 ![image](https://github.com/user-attachments/assets/4be0378f-12c3-4af1-b230-2b8e62a5b99c)
 
-### Register Page**
+### Register Page
 
 ![image](https://github.com/user-attachments/assets/d89d84ad-9cd6-4297-84fd-f8d6ace0a4d8)
 
 
-### Dashboard Page**
+### Dashboard Page
 
 ![image](https://github.com/user-attachments/assets/ecb397f3-3d4d-400e-b08b-7bb557d8081c)
 
@@ -174,7 +174,7 @@ https://create-react-app.dev/docs/deployment/
 
 ![image](https://github.com/user-attachments/assets/fe9701fe-1f35-4d5e-bccd-22528329f714)
 
-###Frontend and Backend APIs Deployed to Azure
+### Frontend and Backend APIs Deployed to Azure
 
 ![image](https://github.com/user-attachments/assets/d7634f17-bc86-428d-96f0-fc642ea09e3a)
 
